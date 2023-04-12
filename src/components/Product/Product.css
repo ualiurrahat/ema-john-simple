@@ -38,3 +38,6 @@
     position: absolute;
     bottom: 0px;
 }
+.btn-cart:hover{
+    background-color: orange;
+}
