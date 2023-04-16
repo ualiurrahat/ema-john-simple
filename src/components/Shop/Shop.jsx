@@ -15,9 +15,22 @@ const Shop = () => {
       .then((data) => setProducts(data));
   }, []);
   // function to add total no. of order in Order Summary
-  // add the product to the cart when 'add to cart button is clicked
+  // add the product to the cart when 'add to cart' button is clicked
   const handleAddToCart = (product) => {
-    const newCart = [...cart, product];
+    // const newCart = [...cart, product]
+    let newCart = [];
+    // if product does not exist in the cart, set quantity to 1
+    // if it exists, update quantity by 1.
+    const exists = cart.find((pd) => pd.id === product.id);
+    if (!exists) {
+      product.quantity = 1;
+      newCart = [...cart, product];
+    } else {
+      exists.quantity = exists.quantity + 1;
+      const remaining = cart.filter((pd) => pd.id !== product.id);
+      newCart = [...remaining, exists];
+    }
+    // set the cart
     setCart(newCart);
     // adding cart to local storage
     addToDb(product.id);
